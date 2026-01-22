@@ -170,6 +170,14 @@
             display: inline-flex;
             align-items: center;
         }
+        .toggle-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
         .link-btn {
             display: inline-flex;
             align-items: center;
@@ -355,9 +363,10 @@
             .paintings-row .row { padding: 0 10px; }
             .paintings-nav-btn { font-size: 20px; padding: 6px 12px; }
             .intro-text { padding: 16px 18px; font-size: 14px; }
-            .model-toggle { flex-wrap: wrap; gap: 8px; }
+            .model-toggle { flex-wrap: wrap; gap: 8px; justify-content: center; }
             .model-toggle-btn { padding: 8px 12px; font-size: 12px; }
-            .footnote-wan { width: 100%; text-align: center; margin-left: 0; }
+            .footnote-wan { width: 100%; text-align: center; margin-left: 0; white-space: normal; }
+            .toggle-header { gap: 10px; }
         }
     </style>
 
@@ -421,7 +430,7 @@ but the correct one — accurately reflecting how the world changes with each ac
     
 
 
-    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 20px;">
+    <div class="toggle-header">
         <h3 style="margin: 0;">3-DoF Position Control Using </h3>
         <div class="model-toggle" style="margin: 0;">
             <button class="model-toggle-btn" onclick="toggleModel('3dof', 'svd')">SVD</button>
@@ -865,7 +874,7 @@ but the correct one — accurately reflecting how the world changes with each ac
     </div>
 
 
-    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 20px;">
+    <div class="toggle-header">
         <h3 style="margin: 0;">25-DoF Humanoid Joint Angle Control Using </h3>
         <button class="model-toggle-btn active" onclick="toggleWanOnly('25dof')">Wan</button>
         <span class="footnote-wan" data-section="25dof">*The Wan model is still under development. These are early results</span>
@@ -1401,7 +1410,7 @@ but the correct one — accurately reflecting how the world changes with each ac
     </div>
     -->
 
-    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 20px;">
+    <div class="toggle-header">
         <h3 style="margin: 0;">Manipulation</h3>
         <div class="model-toggle" style="margin: 0;">
             <button class="model-toggle-btn active" data-section="manip" onclick="toggleModelThree('manip', 'manip-set1')">SVD vs Cosmos</button>
