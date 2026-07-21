@@ -246,8 +246,8 @@
             display: block !important;
         }
 
-        /* Limit to first four rows for manipulation toggles */
-        .manip-limit .paintings-row:nth-child(n+5) {
+        /* Limit to first two rows for manipulation toggles */
+        .manip-limit .paintings-row:nth-child(n+3) {
             display: none !important;
         }
 
@@ -420,8 +420,8 @@ but the correct one — accurately reflecting how the world changes with each ac
 
     <button class="section-nav-btn" onclick="document.getElementById('section-1').scrollIntoView({behavior: 'smooth', block: 'start'})">Navigate and Interact with Paintings</button>
     <button class="section-nav-btn" onclick="document.getElementById('section-2').scrollIntoView({behavior: 'smooth', block: 'start'})">Navigate Real-World</button>
-    <button class="section-nav-btn" onclick="document.getElementById('section-3').scrollIntoView({behavior: 'smooth', block: 'start'})">In-Domain Comparisons</button>
-    <button class="section-nav-btn" onclick="document.getElementById('section-4').scrollIntoView({behavior: 'smooth', block: 'start'})">Finegrained Control</button>
+    <button class="section-nav-btn" onclick="document.getElementById('section-3').scrollIntoView({behavior: 'smooth', block: 'start'})">Manipulation</button>
+    <button class="section-nav-btn" onclick="document.getElementById('section-4').scrollIntoView({behavior: 'smooth', block: 'start'})">Comparisons with NWM</button>
 </div>
 
 <div class="intro-text">
@@ -431,28 +431,478 @@ but the correct one — accurately reflecting how the world changes with each ac
 <section id="section-1" style="margin-top: 10px;">
     <h2 style="text-align:center; margin-top: 10px; border-bottom: none; padding-bottom: 0; margin-bottom: 15px;">Zero-shot Generalisation to Paintings!</h2>
     <div style="width: 200px; height: 4px; background: #ccc; margin: 0 auto 30px;"></div>
+    
 
-    <h3 style="text-align:center; margin-bottom: 20px;">25-DoF Humanoid Joint Angle Control</h3>
+
+    <div class="toggle-header">
+        <h3 style="margin: 0;">3-DoF Position Control Using </h3>
+        <div class="model-toggle" style="margin: 0;">
+            <button class="model-toggle-btn" onclick="toggleModel('3dof', 'svd')">SVD</button>
+            <button class="model-toggle-btn active" onclick="toggleModel('3dof', 'wan')">Wan</button>
+            <span class="footnote-wan" data-section="3dof">*The Wan model is still under development. These are early results</span>
+        </div>
+    </div>
+
+    <!-- SVD Results -->
+    <div class="model-content" id="3dof-svd">
+        <div class="paintings-container" id="paintings-3dof-svd">
+            <div class="paintings-rows-wrapper">
+                <div class="paintings-row active">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_1.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p1_tartan_20210903_heightmaps_5_20210903_143_0_16_32_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p1_tartan_20210903_heightmaps_5_20210903_143_0_16_32.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p1_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_48_64_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p1_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_48_64.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_6.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p6_tartan_20210829_heightmaps_3_20210829_37_0_16_32_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p6_tartan_20210829_heightmaps_3_20210829_37_0_16_32.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p6_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_0_16_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p6_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_0_16.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_8.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p8_tartan_20210903_heightmaps_5_20210903_143_0_0_16_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p8_tartan_20210903_heightmaps_5_20210903_143_0_0_16.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p8_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_48_64_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p8_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_48_64.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_22.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p22_tartan_20210902_heightmaps_3_20210902_91_1_80_96_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p22_tartan_20210902_heightmaps_3_20210902_91_1_80_96.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p22_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_32_48_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p22_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_32_48.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_28.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p28_tartan_20210903_heightmaps_5_20210903_143_0_0_16_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p28_tartan_20210903_heightmaps_5_20210903_143_0_0_16.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p28_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_16_32_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p28_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_16_32.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_34.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p34_tartan_20210902_heightmaps_3_20210902_91_1_64_80_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p34_tartan_20210902_heightmaps_3_20210902_91_1_64_80.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/svd_trajs/p34_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_16_32_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/svd/p34_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_16_32.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paintings-nav">
+                <button class="paintings-nav-btn" onclick="navigatePaintings('paintings-3dof-svd', -1)">&lt;</button>
+                <div class="paintings-dots" id="paintings-3dof-svd-dots"></div>
+                <button class="paintings-nav-btn" onclick="navigatePaintings('paintings-3dof-svd', 1)">&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wan Results (Default) -->
+    <div class="model-content active" id="3dof-wan">
+        <div class="paintings-container" id="paintings-3dof">
+            <div class="paintings-rows-wrapper">
+                <div class="paintings-row active">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_20.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p20_tartan_20210829_heightmaps_1_20210829_2_0_0_17_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p20_tartan_20210829_heightmaps_1_20210829_2_0_0_17.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p20_tartan_20210903_heightmaps_5_20210903_143_0_0_17_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p20_tartan_20210903_heightmaps_5_20210903_143_0_0_17.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_24.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p24_tartan_20210829_heightmaps_3_20210829_37_0_0_17_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p24_tartan_20210829_heightmaps_3_20210829_37_0_0_17.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p24_tartan_20210902_heightmaps_3_20210902_91_1_0_17_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p24_tartan_20210902_heightmaps_3_20210902_91_1_0_17.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_37.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p37_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_0_17_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p37_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_0_17.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p37_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_17_34_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p37_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_17_34.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_17.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p17_tartan_random_mdps_A_Spot_Library_Fountain_Tue_Nov_9_35_2_51_68_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p17_tartan_random_mdps_A_Spot_Library_Fountain_Tue_Nov_9_35_2_51_68.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p17_tartan_random_mdps_A_Spot_Library_Fountain_Tue_Nov_9_35_2_68_85_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p17_tartan_random_mdps_A_Spot_Library_Fountain_Tue_Nov_9_35_2_68_85.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-row">
+                    <div class="row">
+                        <div class="cell">
+                            <div class="col-title">Initial Frame</div>
+                            <img src="./assets/painting_3dof_nav/paintings/p_3.png">
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p3_tartan_20210903_heightmaps_5_20210903_143_0_0_17_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p3_tartan_20210903_heightmaps_5_20210903_143_0_0_17.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cell group-wrapper">
+                            <div class="group-box">
+                                <div class="cell">
+                                    <div class="col-title">Trajectory</div>
+                                    <video src="./assets/painting_3dof_nav/wan_trajs/p3_tartan_random_mdps_A_Spot_Library_Fountain_Tue_Nov_9_35_2_17_34_traj.mp4" autoplay muted playsinline></video>
+                                </div>
+
+                                <div class="cell">
+                                    <div class="col-title">Prediction</div>
+                                    <video src="./assets/painting_3dof_nav/wan/p3_tartan_random_mdps_A_Spot_Library_Fountain_Tue_Nov_9_35_2_17_34.mp4" autoplay muted playsinline></video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="paintings-nav">
+                <button class="paintings-nav-btn" onclick="navigatePaintings('paintings-3dof', -1)">&lt;</button>
+                <div class="paintings-dots" id="paintings-3dof-dots"></div>
+                <button class="paintings-nav-btn" onclick="navigatePaintings('paintings-3dof', 1)">&gt;</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="toggle-header">
+        <h3 style="margin: 0;">25-DoF Humanoid Joint Angle Control Using </h3>
+        <button class="model-toggle-btn active" onclick="toggleWanOnly('25dof')">Wan</button>
+        <span class="footnote-wan" data-section="25dof">*The Wan model is still under development. These are early results</span>
+    </div>
 
     <div class="paintings-container" id="paintings-25dof">
         <div class="paintings-rows-wrapper">
             <div class="paintings-row active">
                 <div class="row">
                     <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_manip/sample_1/painting_9.png">
+                        <div class="col-title">Input Action Sequence</div>
+                        <video src="./assets/paintings_25dof_manip/GT/sample_10.mp4" autoplay muted playsinline></video>
                     </div>
 
                     <div class="cell group-wrapper">
                         <div class="group-box">
                             <div class="cell">
-                                <div class="col-title">GT Action</div>
-                                <video src="./assets/painting_manip/sample_1/GT_1.mp4" autoplay muted playsinline></video>
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_8.png">
                             </div>
 
                             <div class="cell">
                                 <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_manip/sample_1/pred_1.mp4" autoplay muted playsinline></video>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_10_p8.mp4" autoplay muted playsinline></video>
                             </div>
                         </div>
                     </div>
@@ -460,50 +910,13 @@ but the correct one — accurately reflecting how the world changes with each ac
                     <div class="cell group-wrapper">
                         <div class="group-box">
                             <div class="cell">
-                                <div class="col-title">GT Action</div>
-                                <video src="./assets/painting_manip/sample_1/GT_2.mp4" autoplay muted playsinline></video>
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_9.png">
                             </div>
 
                             <div class="cell">
                                 <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_manip/sample_1/pred_2.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="paintings-row">
-                <div class="row">
-                    <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_manip/sample_2/painting_10.png">
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">GT Action</div>
-                                <video src="./assets/painting_manip/sample_2/GT_1.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_manip/sample_2/pred_1.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">GT Action</div>
-                                <video src="./assets/painting_manip/sample_2/GT_2.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_manip/sample_2/pred_2.mp4" autoplay muted playsinline></video>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_10_p9.mp4" autoplay muted playsinline></video>
                             </div>
                         </div>
                     </div>
@@ -513,20 +926,20 @@ but the correct one — accurately reflecting how the world changes with each ac
             <div class="paintings-row">
                 <div class="row">
                     <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_manip/sample_3/painting_8.png">
+                        <div class="col-title">Input Action Sequence</div>
+                        <video src="./assets/paintings_25dof_manip/GT/sample_2.mp4" autoplay muted playsinline></video>
                     </div>
 
                     <div class="cell group-wrapper">
                         <div class="group-box">
                             <div class="cell">
-                                <div class="col-title">GT Action</div>
-                                <video src="./assets/painting_manip/sample_3/GT_1.mp4" autoplay muted playsinline></video>
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_4.png">
                             </div>
 
                             <div class="cell">
                                 <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_manip/sample_3/pred_1.mp4" autoplay muted playsinline></video>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_2_p4.mp4" autoplay muted playsinline></video>
                             </div>
                         </div>
                     </div>
@@ -534,13 +947,161 @@ but the correct one — accurately reflecting how the world changes with each ac
                     <div class="cell group-wrapper">
                         <div class="group-box">
                             <div class="cell">
-                                <div class="col-title">GT Action</div>
-                                <video src="./assets/painting_manip/sample_3/GT_2.mp4" autoplay muted playsinline></video>
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_10.png">
                             </div>
 
                             <div class="cell">
                                 <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_manip/sample_3/pred_2.mp4" autoplay muted playsinline></video>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_2_p10.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paintings-row">
+                <div class="row">
+                    <div class="cell">
+                        <div class="col-title">Input Action Sequence</div>
+                        <video src="./assets/paintings_25dof_manip/GT/sample_12.mp4" autoplay muted playsinline></video>
+                    </div>
+
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_4.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Prediction</div>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_12_p4.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_10.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Prediction</div>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_12_p10.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paintings-row">
+                <div class="row">
+                    <div class="cell">
+                        <div class="col-title">Input Action Sequence</div>
+                        <video src="./assets/paintings_25dof_manip/GT/sample_11.mp4" autoplay muted playsinline></video>
+                    </div>
+
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_12.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Prediction</div>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_11_p12.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_13.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Prediction</div>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_11_p13.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paintings-row">
+                <div class="row">
+                    <div class="cell">
+                        <div class="col-title">Input Action Sequence</div>
+                        <video src="./assets/paintings_25dof_manip/GT/sample_7.mp4" autoplay muted playsinline></video>
+                    </div>
+
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_7.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Prediction</div>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_7_p7.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_9.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Prediction</div>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_7_p9.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paintings-row">
+                <div class="row">
+                    <div class="cell">
+                        <div class="col-title">Input Action Sequence</div>
+                        <video src="./assets/paintings_25dof_manip/GT/sample_244.mp4" autoplay muted playsinline></video>
+                    </div>
+
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_4.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Prediction</div>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_244_p4.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame</div>
+                                <img src="./assets/paintings_25dof_manip/paintings/p_0.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Prediction</div>
+                                <video src="./assets/paintings_25dof_manip/wan/sample_244_p0.mp4" autoplay muted playsinline></video>
                             </div>
                         </div>
                     </div>
@@ -552,241 +1113,6 @@ but the correct one — accurately reflecting how the world changes with each ac
             <button class="paintings-nav-btn" onclick="navigatePaintings('paintings-25dof', -1)">&lt;</button>
             <div class="paintings-dots" id="paintings-25dof-dots"></div>
             <button class="paintings-nav-btn" onclick="navigatePaintings('paintings-25dof', 1)">&gt;</button>
-        </div>
-    </div>
-
-
-    <h3 style="text-align:center; margin-bottom: 20px;">3-DoF Position Control</h3>
-
-
-    <div class="paintings-container" id="paintings-3dof">
-        <div class="paintings-rows-wrapper">
-            <div class="paintings-row active">
-                <div class="row">
-                    <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_3dof_nav/paintings/p_24.png">
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_24_1_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_24_1.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_24_2_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_24_2.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="paintings-row">
-                <div class="row">
-                    <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_3dof_nav/paintings/p_1.png">
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/svd_trajs/p1_tartan_20210903_heightmaps_5_20210903_143_0_16_32_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/svd/p1_tartan_20210903_heightmaps_5_20210903_143_0_16_32.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/svd_trajs/p1_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_48_64_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/svd/p1_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_48_64.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="paintings-row">
-                <div class="row">
-                    <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_3dof_nav/paintings/p_22.png">
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/svd_trajs/p22_tartan_20210902_heightmaps_3_20210902_91_1_80_96_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/svd/p22_tartan_20210902_heightmaps_3_20210902_91_1_80_96.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/svd_trajs/p22_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_32_48_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/svd/p22_tartan_random_mdps_B_Spot_RLM_OsCafe_Mon_Nov_15_117_2_32_48.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="paintings-row">
-                <div class="row">
-                    <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_3dof_nav/paintings/p_34.png">
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/svd_trajs/p34_tartan_20210902_heightmaps_3_20210902_91_1_64_80_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/svd/p34_tartan_20210902_heightmaps_3_20210902_91_1_64_80.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/svd_trajs/p34_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_16_32_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/svd/p34_tartan_random_mdps_B_Spot_JCL_JCL_Mon_Nov_15_108_4_16_32.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<div class="paintings-row">
-                <div class="row">
-                    <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_3dof_nav/paintings/p_37.png">
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_37_1_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_37_1.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_37_2_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_37_2.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="paintings-row">
-                <div class="row">
-                    <div class="cell">
-                        <div class="col-title">Initial Frame</div>
-                        <img src="./assets/painting_3dof_nav/paintings/p_20.png">
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_20_1_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_20_1.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Trajectory</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_20_2_traj.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Prediction</div>
-                                <video src="./assets/painting_3dof_nav/wan_2/pred_20_2.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="paintings-nav">
-            <button class="paintings-nav-btn" onclick="navigatePaintings('paintings-3dof', -1)">&lt;</button>
-            <div class="paintings-dots" id="paintings-3dof-dots"></div>
-            <button class="paintings-nav-btn" onclick="navigatePaintings('paintings-3dof', 1)">&gt;</button>
         </div>
     </div>
 
@@ -1025,14 +1351,398 @@ but the correct one — accurately reflecting how the world changes with each ac
 </section>
 
 <section id="section-3">
-    <h2 style="text-align:center; border-bottom: none; padding-bottom: 0; margin-bottom: 15px;">In-Domain Comparisons</h2>
+    <h2 style="text-align:center; border-bottom: none; padding-bottom: 0; margin-bottom: 15px;">25-DoF Humanoid Joint Angle Control Results on 1x Validation Set</h2>
     <div style="width: 200px; height: 4px; background: #ccc; margin: 0 auto 30px;"></div>
 
-    <h3 style="text-align:center; margin-bottom: 20px;">3-DoF Position Control Comparison on RECON Test Set</h3>
+    <!--
+    <h3 style="text-align:center;">Navigation</h3>
 
+    <div class="paintings-container" id="nav-1x">
+        <div class="paintings-rows-wrapper">
+            <div class="paintings-row active">
+                <div class="row">
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                <img src="./assets/1x_nav/GT1.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">GT Video</div>
+                                <video src="./assets/1x_nav/GT1.mp4" autoplay muted playsinline></video>
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Ours (SVD)</div>
+                                <video src="./assets/1x_nav/pred1.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paintings-row">
+                <div class="row">
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                <img src="./assets/1x_nav/GT3.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">GT Video</div>
+                                <video src="./assets/1x_nav/GT3.mp4" autoplay muted playsinline></video>
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Ours (SVD)</div>
+                                <video src="./assets/1x_nav/pred3.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="paintings-nav">
+            <button class="paintings-nav-btn" onclick="navigatePaintings('nav-1x', -1)">&lt;</button>
+            <div class="paintings-dots" id="nav-1x-dots"></div>
+            <button class="paintings-nav-btn" onclick="navigatePaintings('nav-1x', 1)">&gt;</button>
+        </div>
+    </div>
+    -->
+
+    <div class="toggle-header">
+        <h3 style="margin: 0;">Manipulation</h3>
+        <div class="model-toggle" style="margin: 0;">
+            <button class="model-toggle-btn active" data-section="manip" onclick="toggleModelThree('manip', 'manip-set1')">SVD vs Cosmos</button>
+            <button class="model-toggle-btn" data-section="manip" onclick="toggleModelThree('manip', 'manip-set2')">Finegrained</button>
+            <button class="model-toggle-btn" data-section="manip" onclick="toggleModelThree('manip', 'manip-set3')">Failures</button>
+        </div>
+    </div>
+
+    <div id="manip-section">
+        <div class="model-content active" id="manip-set1">
+            <div class="paintings-container manip-limit" id="manip-1x-set1">
+                <div class="paintings-rows-wrapper">
+                    <div class="paintings-row active">
+                        <div class="row">
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/1x_manip_svd/f_1252.png">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_4_1252_1354.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (SVD)</div>
+                                        <video src="./assets/1x_manip_svd/pred_1252_1354.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_4_1252_1354.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paintings-row">
+                        <div class="row">
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/1x_manip_svd/f_3295.png">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_9_3295_3397.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (SVD)</div>
+                                        <video src="./assets/1x_manip_svd/pred_3295_3397.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_9_3295_3397.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-nav">
+                    <button class="paintings-nav-btn prev-btn" onclick="navigatePaintings('manip-1x-set1', -1)">&lt;</button>
+                    <div class="paintings-dots" id="manip-1x-set1-dots"></div>
+                    <button class="paintings-nav-btn next-btn" onclick="navigatePaintings('manip-1x-set1', 1)">&gt;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="model-content" id="manip-set2">
+            <div class="paintings-container" id="manip-1x-set2">
+                <div class="paintings-rows-wrapper">
+                    <div class="paintings-row active">
+                        <div class="row">
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/f_37554.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_175_37554_37656.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_175_37554_37656.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/f_38023.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_176_38023_38125.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_176_38023_38125.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paintings-row">
+                        <div class="row">
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/f_9104.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_24_9104_9206.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_24_9104_9206.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/f_10760.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_34_10760_10862.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_34_10760_10862.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paintings-row">
+                        <div class="row">
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/f_40237.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_183_40237_40339.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_183_40237_40339.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/f_40635.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_186_40635_40737.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_186_40635_40737.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="paintings-row">
+                        <div class="row">
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/f_33080.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_134_33080_33182.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_134_33080_33182.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/f_33662.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/GT_sample_140_33662_33764.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Pred_sample_140_33662_33764.mp4" autoplay muted playsinline></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paintings-nav">
+                    <button class="paintings-nav-btn prev-btn" onclick="navigatePaintings('manip-1x-set2', -1)">&lt;</button>
+                    <div class="paintings-dots" id="manip-1x-set2-dots"></div>
+                    <button class="paintings-nav-btn next-btn" onclick="navigatePaintings('manip-1x-set2', 1)">&gt;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="model-content" id="manip-set3">
+            <div class="paintings-container manip-limit" id="manip-1x-set3">
+                <div class="paintings-rows-wrapper">
+                    <div class="paintings-row active">
+                        <div class="row">
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/Failures/f_19187.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/Failures/GT_sample_68_19187_19289.mp4" autoplay muted playsinline style="width:200px; height:200px; object-fit: cover;"></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Failures/Pred_sample_68_19187_19289.mp4" autoplay muted playsinline style="width:200px; height:200px; object-fit: cover;"></video>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cell group-wrapper">
+                                <div class="group-box">
+                                    <div class="cell">
+                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                        <img src="./assets/resized_cosmos_manip/Failures/f_23726.png" style="width:200px; height:200px; object-fit: cover;">
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">GT Video</div>
+                                        <video src="./assets/resized_cosmos_manip/Failures/GT_sample_79_23726_23828.mp4" autoplay muted playsinline style="width:200px; height:200px; object-fit: cover;"></video>
+                                    </div>
+                                    <div class="cell">
+                                        <div class="col-title">Ours (Cosmos)</div>
+                                        <video src="./assets/resized_cosmos_manip/Failures/Pred_sample_79_23726_23828.mp4" autoplay muted playsinline style="width:200px; height:200px; object-fit: cover;"></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="paintings-nav">
+                    <button class="paintings-nav-btn prev-btn" onclick="navigatePaintings('manip-1x-set3', -1)">&lt;</button>
+                    <div class="paintings-dots" id="manip-1x-set3-dots"></div>
+                    <button class="paintings-nav-btn next-btn" onclick="navigatePaintings('manip-1x-set3', 1)">&gt;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </section>
+
+<section id="section-4">
+    <h2 style="text-align:center; border-bottom: none; padding-bottom: 0; margin-bottom: 15px;">3-DoF Position Control Comparison on RECON Test Set</h2>
+    <div style="width: 200px; height: 4px; background: #ccc; margin: 0 auto 30px;"></div>
     <div class="paintings-container" id="recon-cmp">
         <div class="paintings-rows-wrapper">
             <div class="paintings-row active">
+                <div class="row">
+                    <div class="cell group-wrapper">
+                        <div class="group-box">
+                            <div class="cell">
+                                <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
+                                <img src="./assets/cmp_recon/sample1/GT.png">
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">GT Video</div>
+                                <video src="./assets/cmp_recon/sample1/GT.mp4" autoplay muted playsinline></video>
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Ours (SVD)</div>
+                                <video src="./assets/cmp_recon/sample1/svd.mp4" autoplay muted playsinline></video>
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">Ours (Cosmos)</div>
+                                <video src="./assets/cmp_recon/sample1/cosmos.mp4" autoplay muted playsinline></video>
+                            </div>
+
+                            <div class="cell">
+                                <div class="col-title">NWM</div>
+                                <video src="./assets/cmp_recon/sample1/nwm.mp4" autoplay muted playsinline></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paintings-row">
                 <div class="row">
                     <div class="cell group-wrapper">
                         <div class="group-box">
@@ -1054,11 +1764,6 @@ but the correct one — accurately reflecting how the world changes with each ac
                             <div class="cell">
                                 <div class="col-title">Ours (Cosmos)</div>
                                 <video src="./assets/cmp_recon/sample2/cosmos.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
-                                <div class="col-title">Ours (Wan)</div>
-                                <video src="./assets/cmp_recon/cmp_recon_wan_trimmed/wan2.mp4" autoplay muted playsinline></video>
                             </div>
 
                             <div class="cell">
@@ -1095,11 +1800,6 @@ but the correct one — accurately reflecting how the world changes with each ac
                             </div>
 
                             <div class="cell">
-                                <div class="col-title">Ours (Wan)</div>
-                                <video src="./assets/cmp_recon/cmp_recon_wan_trimmed/wan3.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
                                 <div class="col-title">NWM</div>
                                 <video src="./assets/cmp_recon/sample3/nwm.mp4" autoplay muted playsinline></video>
                             </div>
@@ -1133,11 +1833,6 @@ but the correct one — accurately reflecting how the world changes with each ac
                             </div>
 
                             <div class="cell">
-                                <div class="col-title">Ours (Wan)</div>
-                                <video src="./assets/cmp_recon/cmp_recon_wan_trimmed/wan4.mp4" autoplay muted playsinline></video>
-                            </div>
-
-                            <div class="cell">
                                 <div class="col-title">NWM</div>
                                 <video src="./assets/cmp_recon/sample4/nwm.mp4" autoplay muted playsinline></video>
                             </div>
@@ -1154,425 +1849,24 @@ but the correct one — accurately reflecting how the world changes with each ac
         </div>
     </div>
 
-    <h3 style="text-align:center; margin-bottom: 20px;">25-DoF Humanoid Joint Angle Control on 1x Validation Set</h3>
 
-    <div class="paintings-container manip-limit" id="manip-1x-set1">
-        <div class="paintings-rows-wrapper">
-            <div class="paintings-row active">
-                <div class="row">
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                <img src="./assets/manip_1x_cmp/sample_5/GT.png">
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">GT Video</div>
-                                <video src="./assets/manip_1x_cmp/sample_5/GT.mp4" autoplay muted playsinline></video>
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (SVD)</div>
-                                <video src="./assets/manip_1x_cmp/sample_5/svd.mp4" autoplay muted playsinline></video>
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (Cosmos)</div>
-                                <video src="./assets/manip_1x_cmp/sample_5/cosmos.mp4" autoplay muted playsinline style="width: 200px; height: 200px; object-fit: cover;"></video>
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (Wan)</div>
-                                <video src="./assets/manip_1x_cmp/sample_5/wan.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    
 
-            <div class="paintings-row">
-                <div class="row">
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                <img src="./assets/manip_1x_cmp/sample_2/GT.png">
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">GT Video</div>
-                                <video src="./assets/manip_1x_cmp/sample_2/GT.mp4" autoplay muted playsinline></video>
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (SVD)</div>
-                                <video src="./assets/manip_1x_cmp/sample_2/svd.mp4" autoplay muted playsinline></video>
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (Cosmos)</div>
-                                <video src="./assets/manip_1x_cmp/sample_2/cosmos.mp4" autoplay muted playsinline></video>
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (Wan)</div>
-                                <video src="./assets/manip_1x_cmp/sample_2/wan.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="paintings-row">
-                <div class="row">
-                    <div class="cell group-wrapper">
-                        <div class="group-box">
-                            <div class="cell">
-                                <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                <img src="./assets/manip_1x_cmp/sample_1/GT.png">
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">GT Video</div>
-                                <video src="./assets/manip_1x_cmp/sample_1/GT.mp4" autoplay muted playsinline></video>    
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (SVD)</div>
-                                <video src="./assets/manip_1x_cmp/sample_1/svd.mp4" autoplay muted playsinline></video>   
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (Cosmos)</div>
-                                <video src="./assets/manip_1x_cmp/sample_1/cosmos.mp4" autoplay muted playsinline></video>
-                            </div>
-                            <div class="cell">
-                                <div class="col-title">Ours (Wan)</div>
-                                <video src="./assets/manip_1x_cmp/sample_1/wan.mp4" autoplay muted playsinline></video>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="paintings-nav">
-            <button class="paintings-nav-btn prev-btn" onclick="navigatePaintings('manip-1x-set1', -1)">&lt;</button>
-            <div class="paintings-dots" id="manip-1x-set1-dots"></div>
-            <button class="paintings-nav-btn next-btn" onclick="navigatePaintings('manip-1x-set1', 1)">&gt;</button>
-        </div>
-    </div>
+    
+
+
+
+    
+
+
+
+
+    
+
 
 </section>
-
-<section id="section-4">
-    <h2 style="text-align:center; border-bottom: none; padding-bottom: 0; margin-bottom: 15px;">Finegrained 25-DoF Humanoid Control</h2>
-    <div style="width: 200px; height: 4px; background: #ccc; margin: 0 auto 30px;"></div>
-
-    <div class="toggle-header">
-        <div class="model-toggle" style="margin: 0;">
-            <button class="model-toggle-btn" data-section="manip" onclick="toggleModelThree('manip', 'manip-set4')">Navigation</button>
-            <button class="model-toggle-btn active" data-section="manip" onclick="toggleModelThree('manip', 'manip-set2')">Manipulation</button>
-            <button class="model-toggle-btn" data-section="manip" onclick="toggleModelThree('manip', 'manip-set3')">Failures</button>
-        </div>
-    </div>
-
-    <div id="manip-section">
-        <div class="model-content active" id="manip-set2">
-            <div class="paintings-container" id="manip-1x-set2">
-                <div class="paintings-rows-wrapper">
-                    <div class="paintings-row active">
-                        <div class="row">
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/f_37554.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/GT_sample_175_37554_37656.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Pred_sample_175_37554_37656.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/f_38023.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/GT_sample_176_38023_38125.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Pred_sample_176_38023_38125.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paintings-row">
-                        <div class="row">
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/f_9104.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/GT_sample_24_9104_9206.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Pred_sample_24_9104_9206.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/f_10760.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/GT_sample_34_10760_10862.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Pred_sample_34_10760_10862.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paintings-row">
-                        <div class="row">
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/f_40237.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/GT_sample_183_40237_40339.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Pred_sample_183_40237_40339.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/f_40635.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/GT_sample_186_40635_40737.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Pred_sample_186_40635_40737.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paintings-row">
-                        <div class="row">
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/f_33080.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/GT_sample_134_33080_33182.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Pred_sample_134_33080_33182.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/f_33662.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/GT_sample_140_33662_33764.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Pred_sample_140_33662_33764.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="paintings-nav">
-                    <button class="paintings-nav-btn prev-btn" onclick="navigatePaintings('manip-1x-set2', -1)">&lt;</button>
-                    <div class="paintings-dots" id="manip-1x-set2-dots"></div>
-                    <button class="paintings-nav-btn next-btn" onclick="navigatePaintings('manip-1x-set2', 1)">&gt;</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="model-content" id="manip-set3">
-            <div class="paintings-container manip-limit" id="manip-1x-set3">
-                <div class="paintings-rows-wrapper">
-                    <div class="paintings-row active">
-                        <div class="row">
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/Failures/f_19187.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Failures/GT_sample_68_19187_19289.mp4" autoplay muted playsinline style="width:200px; height:200px; object-fit: cover;"></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Failures/Pred_sample_68_19187_19289.mp4" autoplay muted playsinline style="width:200px; height:200px; object-fit: cover;"></video>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/resized_cosmos_manip/Failures/f_23726.png" style="width:200px; height:200px; object-fit: cover;">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Failures/GT_sample_79_23726_23828.mp4" autoplay muted playsinline style="width:200px; height:200px; object-fit: cover;"></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/resized_cosmos_manip/Failures/Pred_sample_79_23726_23828.mp4" autoplay muted playsinline style="width:200px; height:200px; object-fit: cover;"></video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="paintings-nav">
-                    <button class="paintings-nav-btn prev-btn" onclick="navigatePaintings('manip-1x-set3', -1)">&lt;</button>
-                    <div class="paintings-dots" id="manip-1x-set3-dots"></div>
-                    <button class="paintings-nav-btn next-btn" onclick="navigatePaintings('manip-1x-set3', 1)">&gt;</button>
-                </div>
-            </div>
-        </div>
-        <div class="model-content" id="manip-set4">
-            <div class="paintings-container" id="manip-1x-set4">
-                <div class="paintings-rows-wrapper">
-                    <div class="paintings-row active">
-                        <div class="row">
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/finegrained_25dofnav/sample_1a/GT.png">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/finegrained_25dofnav/sample_1a/GT.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/finegrained_25dofnav/sample_1a/pred.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/finegrained_25dofnav/sample_1b/GT.png">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/finegrained_25dofnav/sample_1b/GT.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/finegrained_25dofnav/sample_1b/pred.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="paintings-row">
-                        <div class="row">
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/finegrained_25dofnav/sample_2a/GT.png">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/finegrained_25dofnav/sample_2a/GT.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/finegrained_25dofnav/sample_2a/pred.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="cell group-wrapper">
-                                <div class="group-box">
-                                    <div class="cell">
-                                        <div class="col-title">Initial Frame <span style="color: #c62828;">+ Action Traj.</span></div>
-                                        <img src="./assets/finegrained_25dofnav/sample_2b/GT.png">
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">GT Video</div>
-                                        <video src="./assets/finegrained_25dofnav/sample_2b/GT.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                    <div class="cell">
-                                        <div class="col-title">Pred Video</div>
-                                        <video src="./assets/finegrained_25dofnav/sample_2b/pred.mp4" autoplay muted playsinline></video>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="paintings-nav">
-                    <button class="paintings-nav-btn prev-btn" onclick="navigatePaintings('manip-1x-set4', -1)">&lt;</button>
-                    <div class="paintings-dots" id="manip-1x-set4-dots"></div>
-                    <button class="paintings-nav-btn next-btn" onclick="navigatePaintings('manip-1x-set4', 1)">&gt;</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    </section>
 
 <script>
     // Function to scroll to a specific section
@@ -1605,7 +1899,6 @@ but the correct one — accurately reflecting how the world changes with each ac
         initializePaintingsContainer('manip-1x-set1');
         initializePaintingsContainer('manip-1x-set2');
         initializePaintingsContainer('manip-1x-set3');
-        initializePaintingsContainer('manip-1x-set4');
         initializePaintingsContainer('realw-3dof');
         initializePaintingsContainer('realw-25dof');
         initializePaintingsContainer('nav-1x');
